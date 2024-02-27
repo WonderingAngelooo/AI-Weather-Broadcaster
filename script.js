@@ -1,3 +1,24 @@
+// Typing effect function
+function typeEffect(element, speed) {
+  const text = element.innerHTML;
+  element.innerHTML = '';
+
+  let i = 0;
+  const typing = setInterval(function() {
+    if (i < text.length) {
+      element.innerHTML += text.charAt(i);
+      i++;
+    } else {
+      clearInterval(typing);
+    }
+  }, speed);
+}
+
+// Call the typing effect function
+const weatherInfo = document.getElementById('weather-info');
+
+typeEffect(weatherInfo, 30); // Typing speed: 50 milliseconds per character
+
 // Function to convert temperature from Kelvin to Celsius
 function kelvinToCelsius(kelvin) {
   return (kelvin - 273.15).toFixed(2);
