@@ -10,9 +10,9 @@ function formatTime(time) {
   return hours + ':' + minutes; // Return formatted time string
 }
 
-function speakWeatherInfo(city, description, temperature,place, sunrise, sunset) {
+function speakWeatherInfo(city, description, temperature, place, sunrise, sunset,humidity,windSpeed) {
   var message = "The weather in " + city + " is currently " + description + " and the temperature is " + temperature + " degrees Celsius. ";
-  message += "The sunrise is at " + sunrise + " and the sunset is at " + sunset + ".";
+  message += "The sunrise is at " + sunrise + " the sunset is at " + sunset + " the humidity percentage is " + humidity + "percent "+ " and the wind speed is "+ windSpeed + " kilometers per hour "+ ".";
   
   var speech = new SpeechSynthesisUtterance(message);
   speech.lang = 'en-US';
@@ -28,7 +28,7 @@ function changeBackground(weatherDescription) {
   // Map weather descriptions to background styles
   const backgroundStyles = {
     'clear sky': 'url("https://images.unsplash.com/photo-1467740100611-36858db27485?q=80&w=1746&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
-    'few clouds': 'url("https://images.unsplash.com/photo-1466527496777-6ed64c30572e?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
+    'few clouds': 'url("https://images.unsplash.com/photo-1495490311930-678c8ecdd120?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
     'scattered clouds': 'url("https://images.unsplash.com/photo-1642447733831-2cdd9f5efae7?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
     'broken clouds': 'url("https://images.unsplash.com/photo-1642447733831-2cdd9f5efae7?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
     'shower rain': 'url("https://images.unsplash.com/photo-1438449805896-28a666819a20?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
@@ -88,18 +88,24 @@ document.getElementById("search-button").addEventListener("click", function() {
       const icon = data.weather[0].icon;
       const sunrise = formatTime(new Date(data.sys.sunrise * 1000));
       const sunset = formatTime(new Date(data.sys.sunset * 1000));
+      const humidity = data.main.humidity;
+      const windSpeed = data.wind.speed;
 
       // Change background based on weather description
       changeBackground(description);
       
       document.getElementById("place").innerHTML = place;
-      document.getElementById("country").innerHTML = country;
-      document.getElementById("temperature").innerHTML = temperature + "°C";
+      document.getElementById("country").src = "Country: " + country;
+      document.getElementById("temperature").innerHTML = "Temp: " + temperature + "°C";
       document.getElementById("icon").src = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
       document.getElementById("description").innerHTML = description;
       document.getElementById("sunrise").innerHTML = "Sunrise: " + sunrise;
-      document.getElementById("sunset").innerHTML = "Sunset : " + sunset;
-      speakWeatherInfo(city, description, temperature, place, sunrise, sunset);
+      document.getElementById("sunset").innerHTML = "Sunset: " + sunset;
+      document.getElementById("humidity").innerHTML = "Humidity: " + humidity + "%";
+      document.getElementById("windSpeed").innerHTML = "Wind Spd: " + windSpeed + "Kph";
+
+      
+      speakWeatherInfo(city, description, temperature, place, sunrise, sunset,humidity,windSpeed);
       
       // Update time every second
       setInterval(updateTime, 1000);  
