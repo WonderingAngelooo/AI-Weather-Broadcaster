@@ -1,0 +1,13 @@
+.display-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20vh; 
+}
+
+#description,#place,#country, #temperature, #sunrise, #sunset, #today, #min, #date {
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 32px; 
+  color: #333; 
+}
+
