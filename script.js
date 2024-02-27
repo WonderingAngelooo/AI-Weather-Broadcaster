@@ -16,6 +16,13 @@ function speakWeatherInfo(city, description, temperature, place, sunrise, sunset
   
   var speech = new SpeechSynthesisUtterance(message);
   speech.lang = 'en-US';
+
+  // Get list of available voices
+  var voices = window.speechSynthesis.getVoices();
+
+  // Find a female voice
+  var femaleVoice = voices.find(voice => voice.name === 'Google UK English Female');
+
   
   window.speechSynthesis.speak(speech);
 }
@@ -23,7 +30,7 @@ function speakWeatherInfo(city, description, temperature, place, sunrise, sunset
 // Function to change background based on weather description and time
 function changeBackground(weatherDescription) {
   const body = document.getElementById('body');
-  const currentTime = new Date().getHours();
+ 
 
   // Map weather descriptions to background styles
   const backgroundStyles = {
@@ -38,7 +45,7 @@ function changeBackground(weatherDescription) {
     'mist': 'url("https://images.unsplash.com/photo-1560996025-95b43d543770?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")'
   };
 
-  // Set background style based on weather description and time
+  // Set background style based on weather description
   if (backgroundStyles.hasOwnProperty(weatherDescription)) {
     body.style.backgroundImage = backgroundStyles[weatherDescription];
   } else {
