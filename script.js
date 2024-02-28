@@ -123,7 +123,7 @@ function searchWeather() {
       document.getElementById("country").innerHTML = "Country: " + country;
       document.getElementById("temperature").innerHTML = "Temp: " + temperature + "°C";
       document.getElementById("icon").src = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
-      document.getElementById("description").innerHTML = description;
+      document.getElementById("description").innerHTML = "Description: "+ description;
       document.getElementById("sunrise").innerHTML = "Sunrise: " + sunrise;
       document.getElementById("sunset").innerHTML = "Sunset: " + sunset;
       document.getElementById("humidity").innerHTML = "Humidity: " + humidity + "%";
