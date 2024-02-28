@@ -87,7 +87,7 @@ function recognizeSpeech() {
   recognition.onresult = function(event) {
     const speechToText = event.results[0][0].transcript;
     document.getElementById("city-input").value = speechToText;
-    searchWeather(speechToText);
+    searchWeather(); // Trigger search after setting the input field value
   }
   
   recognition.onerror = function(event) {
@@ -95,17 +95,14 @@ function recognizeSpeech() {
   }
 }
 
-// Add event listener for clicking the search button
-document.getElementById("search-button").addEventListener("click", function() {
-  var city = document.getElementById("city-input").value;
-  searchWeather(city);
-});
-
-
-document.getElementById("search-button").addEventListener("click", function() {
+// Function to trigger weather search
+function searchWeather() {
   var city = document.getElementById("city-input").value;
   fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=efa343dc4e8b491453855c6c6d106bab")
     .then((response) => {
+      if (!response.ok) {
+        throw new Error("City not found");
+      }
       return response.json();
     })
     .then((data) => {
@@ -123,7 +120,7 @@ document.getElementById("search-button").addEventListener("click", function() {
       changeBackground(description);
       
       document.getElementById("place").innerHTML = place;
-      document.getElementById("country").src = "Country: " + country;
+      document.getElementById("country").innerHTML = "Country: " + country;
       document.getElementById("temperature").innerHTML = "Temp: " + temperature + "°C";
       document.getElementById("icon").src = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
       document.getElementById("description").innerHTML = description;
@@ -132,13 +129,14 @@ document.getElementById("search-button").addEventListener("click", function() {
       document.getElementById("humidity").innerHTML = "Humidity: " + humidity + "%";
       document.getElementById("windSpeed").innerHTML = "Wind Spd: " + windSpeed + "Kph";
 
-      
-      speakWeatherInfo(city, description, temperature, place, sunrise, sunset,humidity,windSpeed);
-      
-      // Update time every second
-      setInterval(updateTime, 1000);  
+      speakWeatherInfo(city, description, temperature, place, sunrise, sunset, humidity, windSpeed);
     })
-    .catch((error) => {
-      console.error('Error:', error);
+    .catch(error => {
+      console.error("Error:", error);
+      // Display message for city not found
+      alert("City not found. Please enter a valid city name.");
     });
-});
+}
+
+// Add event listener for clicking the search button
+document.getElementById("search-button").addEventListener("click", searchWeather);
