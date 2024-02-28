@@ -62,7 +62,7 @@ function changeBackground(weatherDescription) {
     'shower rain': 'url("https://images.unsplash.com/photo-1438449805896-28a666819a20?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
     'rain': 'url("https://images.unsplash.com/photo-1438449805896-28a666819a20?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
     'thunderstorm': 'url("https://images.unsplash.com/photo-1605727216801-e27ce1d0cc28?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
-    'snow': 'url("https://images.unsplash.com/photo-1414541944151-2f3ec1cfd87d?q=80&w=1748&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
+    'snow': 'url("https://images.unsplash.com/photo-1491002052546-bf38f186af56?q=80&w=1808&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
     'mist': 'url("https://images.unsplash.com/photo-1560996025-95b43d543770?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")'
   };
 
@@ -118,7 +118,15 @@ function searchWeather() {
 
       // Change background based on weather description
       changeBackground(description);
-      
+
+      // Check if temperature is below 5 degrees Celsius
+      if (parseFloat(temperature) < 5) {
+        document.body.style.backgroundImage = 'url("https://images.unsplash.com/photo-1418985991508-e47386d96a71?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")';
+      } else {
+        // Change background based on weather description if temperature is not below 5 degrees Celsius
+        changeBackground(description);
+      }
+
       document.getElementById("place").innerHTML = place;
       document.getElementById("country").innerHTML = "Country: " + country;
       document.getElementById("temperature").innerHTML = "Temp: " + temperature + "°C";
