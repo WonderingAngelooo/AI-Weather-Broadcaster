@@ -12,45 +12,38 @@
   <title>Weather</title>
 </head>
 
-<header class="w-1/2 mr-32">
-  
-  
-  <p id="welcome">WELCOME TO WEATHER BROADCAST AI</p>
-  <h6 class="text-xl" id="weather-info">With our Weather Broadcast AI, you can access real-time weather data, including temperature, humidity, and wind speed, all presented in an intuitive and easy-to-understand format.</h6>
-</header>
+<body class="display-center bg-cover" id="body" style="background-image: url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size:auto;">
 
-<body class="display-center" id="body" style="background-image: url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-repeat: no-repeat;">
+  <header class="w-full md:w-1/2 mx-auto md:block">
+    <p id="welcome">WELCOME TO WEATHER BROADCAST AI</p>
+    <h6 class="text-xl" id="weather-info">With our Weather Broadcast AI, you can access real-time weather data, including temperature, humidity, and wind speed, all presented in an intuitive and easy-to-understand format.</h6>
+  </header>
 
-
-  
-        <div class="shadow-2xl  w-1/3 h-full rounded-md" >
-          <div class="text-center mb-24" id="search-container">
-            <input class="p-2 rounded-md border border-black bg-gray-200" type="text" id="city-input" placeholder="Enter city name">
-            <button class="ml-2 mt-2 font-bold border border-black bg-gray-200 p-2 rounded-md" id="search-button"> <i class="fas fa-search mr-2"></i>Search</button>
-            <button class="ml-2 mt-2 font-bold border border-black bg-gray-200 p-2 rounded-md" id="voice-search-button"><i class="fas fa-microphone-alt mr-2"></i>Voice </button>
-          <span class="mt-5 text-center flex flex-wrap">
-            <div style="display: flex; justify-content: center; width: 100%;">
-              <img src="" alt="" id="icon">
-          </div>
-          <h5 class="w-full" id="city-time"></h5>
-          <h5 class="w-full" id="place"></h5>
-          <h5 class="w-full mt-4" id="description"></h5>
-          <h5 class="w-1/3 mt-4" id="temperature"></h5>
-          <h5 class="w-1/3 mt-4" id="sunrise"></h5>
-          <h5 class="w-1/3 mt-4" id="sunset"></h5>
-          <h5 class="w-1/2 mt-4" id="humidity"></h5>
-          <h5 class="w-1/2 mt-4" id="windSpeed"></h5>
-          
-          </span>
-         
+  <div class="shadow-2xl w-full md:w-1/3 h-full rounded-md mx-auto">
+    <div class="text-center mb-24" id="search-container">
+      <input class="p-2 rounded-md border border-black bg-gray-200" type="text" id="city-input" placeholder="Enter city name">
+      <button class="ml-2 mt-2 font-bold border border-black bg-gray-200 p-2 rounded-md" id="search-button"> <i class="fas fa-search mr-2"></i>Search</button>
+      <button class="ml-2 mt-2 font-bold border border-black bg-gray-200 p-2 rounded-md" id="voice-search-button"><i class="fas fa-microphone-alt mr-2"></i>Voice </button>
+      <span class="mt-5 text-center flex flex-wrap">
+        <div style="display: flex; justify-content: center; width: 100%;">
+          <img src="" alt="" id="icon">
         </div>
-      </div>
+        <h5 class="w-full" id="city-time"></h5>
+        <h5 class="w-full" id="place"></h5>
+        <h5 class="w-full mt-4" id="description"></h5>
+        <h5 class="w-1/3 mt-4" id="temperature"></h5>
+        <h5 class="w-1/3 mt-4" id="sunrise"></h5>
+        <h5 class="w-1/3 mt-4" id="sunset"></h5>
+        <h5 class="w-1/2 mt-4" id="humidity"></h5>
+        <h5 class="w-1/2 mt-4" id="windSpeed"></h5>
+      </span>
     </div>
   </div>
+
   <script src="script.js"></script>
+
+  <h4 class="fixed bottom-0 right-0 mb-4 mr-4 font-bold text-gray-600"> Angelo Pogi ^_^</h4>
+
 </body>
-
-<h4 class="fixed bottom-0 right-0 mb-4 mr-4 font-bold text-gray-600"> Angelo Pogi ^_^</h4>
-
 
 </html>

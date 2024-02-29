@@ -17,7 +17,14 @@ function typeEffect(element, speed) {
 // Call the typing effect function
 const weatherInfo = document.getElementById('weather-info');
 
-typeEffect(weatherInfo, 30); // Typing speed: 50 milliseconds per character
+
+
+// Check if the screen width is greater than a certain threshold (e.g., 768 pixels)
+if (window.innerWidth > 768) {
+  // Call the typeEffect function for non-mobile view
+  const element = document.getElementById('weather-info');
+  typeEffect(element, 30);
+}
 
 // Function to convert temperature from Kelvin to Celsius
 function kelvinToCelsius(kelvin) {

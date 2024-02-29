@@ -5,20 +5,38 @@
   margin-top: 10vh; 
 }
 
-#description,#place,#country, #temperature, #sunrise, #sunset, #today, #min, #windSpeed, #humidity {
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+#description, #place, #country, #temperature, #sunrise, #sunset, #today, #min, #windSpeed, #humidity {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 32px; 
   color: #333; 
   font-weight: bolder;
 }
 
-header{
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+header {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 32px; 
   color: #030303; 
   font-weight: bolder;
-  text-align:justify;
+  text-align: justify;
 }
 
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .display-center {
+    flex-direction: column; /* Change flex direction to column */
+  }
+  #description, #place, #country, #temperature, #sunrise, #sunset, #today, #min, #windSpeed, #humidity {
+    font-size: 24px; /* Adjust font size for smaller screens */
+  }
+  
+  header {
+    font-size: 24px; /* Adjust font size for smaller screens */
+    padding: 5%;
 
+  }
 
+  #search-container {
+    margin-top: 100px; /* Add some space between header and search container */
+  }
+
+}
