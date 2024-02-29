@@ -127,15 +127,16 @@ function searchWeather() {
         changeBackground(description);
       }
 
-      document.getElementById("place").innerHTML = place;
-      document.getElementById("country").innerHTML = "Country: " + country;
+      document.getElementById("place").innerHTML = place +" "+ country;
       document.getElementById("temperature").innerHTML = "Temp: " + temperature + "°C";
       document.getElementById("icon").src = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
-      document.getElementById("description").innerHTML = "Description: "+ description;
+      document.getElementById("icon").style.width = "150px"; // Adjust the width as needed
+      document.getElementById("icon").style.height = "150px"; // Adjust the height as needed
+      document.getElementById("description").innerHTML = "Description: " + description.charAt(0).toUpperCase() + description.slice(1);
       document.getElementById("sunrise").innerHTML = "Sunrise: " + sunrise;
       document.getElementById("sunset").innerHTML = "Sunset: " + sunset;
       document.getElementById("humidity").innerHTML = "Humidity: " + humidity + "%";
-      document.getElementById("windSpeed").innerHTML = "Wind Spd: " + windSpeed + "Kph";
+      document.getElementById("windSpeed").innerHTML = "Wind: " + windSpeed + "<small>Kph</small>";
 
       speakWeatherInfo(city, description, temperature, place, sunrise, sunset, humidity, windSpeed);
     })
