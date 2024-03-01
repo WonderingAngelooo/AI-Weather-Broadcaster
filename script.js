@@ -103,6 +103,16 @@ function recognizeSpeech() {
   }
 }
 
+// Function to trigger weather search when Enter key is pressed
+document.getElementById("city-input").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    // Prevent the default action of the Enter key (e.g., form submission)
+    event.preventDefault();
+    // Trigger weather search
+    searchWeather();
+  }
+});
+
 // Function to trigger weather search
 function searchWeather() {
   var city = document.getElementById("city-input").value;
