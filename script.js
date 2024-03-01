@@ -38,8 +38,8 @@ function formatTime(time) {
   return hours + ':' + minutes; // Return formatted time string
 }
 
-function speakWeatherInfo(city, description, temperature, place, sunrise, sunset,humidity,windSpeed) {
-  var message = "The weather in " + city + " is currently " + description + " and the temperature is " + temperature + " degrees Celsius. ";
+function speakWeatherInfo(city, country, description, temperature, place, sunrise, sunset,humidity,windSpeed) {
+  var message = "The weather in " + city + country + " is currently " + description + " and the temperature is " + temperature + " degrees Celsius. ";
   message += "The sunrise is at " + sunrise + " the sunset is at " + sunset + " the humidity percentage is " + humidity + "percent "+ " and the wind speed is "+ windSpeed + " kilometers per hour "+ ".";
   
   var speech = new SpeechSynthesisUtterance(message);
@@ -76,6 +76,7 @@ function changeBackground(weatherDescription) {
   // Set background style based on weather description
   if (backgroundStyles.hasOwnProperty(weatherDescription)) {
     body.style.backgroundImage = backgroundStyles[weatherDescription];
+    body.style.backgroundSize = 'auto'; // Set background size to auto
   } else {
     // Set default background if description doesn't match
     body.style.backgroundImage = backgroundImage;
@@ -126,13 +127,51 @@ function searchWeather() {
       // Change background based on weather description
       changeBackground(description);
 
-      // Check if temperature is below 5 degrees Celsius
-      if (parseFloat(temperature) < 5) {
-        document.body.style.backgroundImage = 'url("https://images.unsplash.com/photo-1418985991508-e47386d96a71?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")';
-      } else {
-        // Change background based on weather description if temperature is not below 5 degrees Celsius
-        changeBackground(description);
+    if (description.toLowerCase() === 'mist') {
+        // Set text color to white for specific elements
+        document.getElementById("city-time").style.color = 'white';
+        document.getElementById("place").style.color = 'white';
+        document.getElementById("description").style.color = 'white';
+        document.getElementById("temperature").style.color = 'white';
+        document.getElementById("sunrise").style.color = 'white';
+        document.getElementById("sunset").style.color = 'white';
+        document.getElementById("humidity").style.color = 'white';
+        document.getElementById("windSpeed").style.color = 'white';
       }
+
+      if (description.toLowerCase() === 'thunderstorm') {
+        // Set text color to white for specific elements
+        document.getElementById("city-time").style.color = 'white';
+        document.getElementById("place").style.color = 'white';
+        document.getElementById("description").style.color = 'white';
+        document.getElementById("temperature").style.color = 'white';
+        document.getElementById("sunrise").style.color = 'white';
+        document.getElementById("sunset").style.color = 'white';
+        document.getElementById("humidity").style.color = 'white';
+        document.getElementById("windSpeed").style.color = 'white';
+      }
+
+       // Check if temperature is below 5 degrees
+    if (parseFloat(temperature) < 5) {
+      // Change background image
+      document.body.style.backgroundImage = 'url("https://images.unsplash.com/photo-1418985991508-e47386d96a71?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")';
+
+      // Check if display is in mobile view
+      if (window.innerWidth <= 768) {
+        // Set text color to white for specific elements
+        document.getElementById("city-time").style.color = 'white';
+        document.getElementById("place").style.color = 'white';
+        document.getElementById("description").style.color = 'white';
+        document.getElementById("temperature").style.color = 'white';
+        document.getElementById("sunrise").style.color = 'white';
+        document.getElementById("sunset").style.color = 'white';
+        document.getElementById("humidity").style.color = 'white';
+        document.getElementById("windSpeed").style.color = 'white';
+      }
+    } else {
+      // Temperature is not below 5 degrees, change background based on weather description
+      changeBackground(description);
+    }
 
       document.getElementById("place").innerHTML = place +" "+ country;
       document.getElementById("temperature").innerHTML = "Temp: " + temperature + "°C";
@@ -145,7 +184,7 @@ function searchWeather() {
       document.getElementById("humidity").innerHTML = "Humidity: " + humidity + "%";
       document.getElementById("windSpeed").innerHTML = "Wind: " + windSpeed + "<small>Kph</small>";
 
-      speakWeatherInfo(city, description, temperature, place, sunrise, sunset, humidity, windSpeed);
+      speakWeatherInfo(city, country, description, temperature, place, sunrise, sunset, humidity, windSpeed);
     })
     .catch(error => {
       console.error("Error:", error);
