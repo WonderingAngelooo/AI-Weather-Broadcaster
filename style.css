@@ -20,6 +20,14 @@ header {
   text-align: justify;
 }
 
+#mic-status {
+  font-size: 18px;
+  color: #000000;
+  margin-top: 40px;
+
+  font-weight: bolder;
+}
+
 .button {
   border-radius: 4px;
   background-color: #ffffff;
@@ -93,10 +101,6 @@ header {
   padding-right: 40px;
 }
 
-.button:hover {
- 
-  
-}
 
 .button1:hover span:after {
   opacity: 1;

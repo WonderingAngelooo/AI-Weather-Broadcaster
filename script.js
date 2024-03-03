@@ -94,7 +94,7 @@ function recognizeSpeech() {
 
   // Add text indicating that the mic is on
   const micStatus = document.createElement('p');
-  micStatus.textContent = 'Microphone is on. You can speak now.';
+  micStatus.textContent = 'Microphone is ON. You can speak now.';
   micStatus.id = 'mic-status';
   document.getElementById('search-container').appendChild(micStatus);
 
