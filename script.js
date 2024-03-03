@@ -91,17 +91,32 @@ function recognizeSpeech() {
   const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
   recognition.lang = 'en-US';
   recognition.start();
-  
+
+  // Add text indicating that the mic is on
+  const micStatus = document.createElement('p');
+  micStatus.textContent = 'Microphone is on. You can speak now.';
+  micStatus.id = 'mic-status';
+  document.getElementById('search-container').appendChild(micStatus);
+
   recognition.onresult = function(event) {
     const speechToText = event.results[0][0].transcript;
     document.getElementById("city-input").value = speechToText;
     searchWeather(); // Trigger search after setting the input field value
   }
-  
+
   recognition.onerror = function(event) {
     console.error('Speech recognition error:', event.error);
   }
+
+  // Remove mic status text when the mic is turned off
+  recognition.onend = function() {
+    const micStatus = document.getElementById('mic-status');
+    if (micStatus) {
+      micStatus.parentNode.removeChild(micStatus);
+    }
+  }
 }
+
 
 // Function to trigger weather search when Enter key is pressed
 document.getElementById("city-input").addEventListener("keydown", function(event) {

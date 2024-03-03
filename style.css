@@ -20,6 +20,89 @@ header {
   text-align: justify;
 }
 
+.button {
+  border-radius: 4px;
+  background-color: #ffffff;
+  border: none;
+  color: #000000;
+  text-align: center;
+  font-size: 14px;
+  padding: 20px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  font-weight: bolder;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: 'Voice';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 35px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.button1 {
+  border-radius: 4px;
+  background-color: #ffffff;
+  border: none;
+  color: #130101;
+  text-align: center;
+  font-size: 14px;
+  padding: 20px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  font-weight: bolder;
+}
+
+.button1 span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button1 span:after {
+  content: 'Search';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button1:hover span {
+  padding-right: 40px;
+}
+
+.button:hover {
+ 
+  
+}
+
+.button1:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
 
 
 
@@ -41,6 +124,24 @@ header {
   #search-container {
     margin-top: 30px; /* Add some space between header and search container */
   }
+  
+
+  .button span:after {
+    display: none; /* Hide the pseudo-element with text */
+  }
+  
+  .button1 span:after {
+    display: none; /* Hide the pseudo-element with text */
+  }
+  
+  .button:hover span {
+    padding-right: 0; /* Remove padding when hovered */
+  }
+  
+  .button1:hover span {
+    padding-right: 0; /* Remove padding when hovered */
+  }
+  
 
   
 
