@@ -17,8 +17,6 @@ function typeEffect(element, speed) {
 // Call the typing effect function
 const weatherInfo = document.getElementById('weather-info');
 
-
-
 // Check if the screen width is greater than a certain threshold (e.g., 768 pixels)
 if (window.innerWidth > 768) {
   // Call the typeEffect function for non-mobile view
@@ -38,10 +36,11 @@ function formatTime(time) {
   return hours + ':' + minutes; // Return formatted time string
 }
 
-function speakWeatherInfo(city, country, description, temperature, place, sunrise, sunset,humidity,windSpeed) {
+// Function to speak weather info and trigger video
+function speakWeatherInfo(city, country, description, temperature, place, sunrise, sunset, humidity, windSpeed) {
   var message = "The weather in " + city + country + " is currently " + description + " and the temperature is " + temperature + " degrees Celsius. ";
-  message += "The sunrise is at " + sunrise + " the sunset is at " + sunset + " the humidity percentage is " + humidity + "percent "+ " and the wind speed is "+ windSpeed + " kilometers per hour "+ ".";
-  
+  message += "The sunrise is at " + sunrise + " the sunset is at " + sunset + " the humidity percentage is " + humidity + "percent " + " and the wind speed is " + windSpeed + " kilometers per hour " + ".";
+
   var speech = new SpeechSynthesisUtterance(message);
   speech.lang = 'en-US';
 
@@ -51,42 +50,20 @@ function speakWeatherInfo(city, country, description, temperature, place, sunris
   // Find a female voice
   var femaleVoice = voices.find(voice => voice.name === 'Google UK English Female');
 
-  
+  // When speech synthesis starts speaking, play the second video
+  speech.onstart = function() {
+    startActiveState();
+  };
+
+  // When speech synthesis ends, play the first video again
+  speech.onend = function() {
+    endActiveState();
+  };
+
   window.speechSynthesis.speak(speech);
 }
 
-// Function to change background based on weather description and time
-function changeBackground(weatherDescription) {
-  const body = document.getElementById('body');
- 
-
-  // Map weather descriptions to background styles
-  const backgroundStyles = {
-    'clear sky': 'url("https://images.unsplash.com/photo-1467740100611-36858db27485?q=80&w=1746&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
-    'few clouds': 'url("https://images.unsplash.com/photo-1495490311930-678c8ecdd120?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
-    'scattered clouds': 'url("https://images.unsplash.com/photo-1642447733831-2cdd9f5efae7?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
-    'broken clouds': 'url("https://images.unsplash.com/photo-1642447733831-2cdd9f5efae7?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
-    'shower rain': 'url("https://images.unsplash.com/photo-1438449805896-28a666819a20?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
-    'rain': 'url("https://images.unsplash.com/photo-1438449805896-28a666819a20?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
-    'thunderstorm': 'url("https://images.unsplash.com/photo-1605727216801-e27ce1d0cc28?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
-    'snow': 'url("https://images.unsplash.com/photo-1491002052546-bf38f186af56?q=80&w=1808&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
-    'mist': 'url("https://images.unsplash.com/photo-1560996025-95b43d543770?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")'
-  };
-
-  // Set background style based on weather description
-  if (backgroundStyles.hasOwnProperty(weatherDescription)) {
-    body.style.backgroundImage = backgroundStyles[weatherDescription];
-    body.style.backgroundSize = 'auto'; // Set background size to auto
-  } else {
-    // Set default background if description doesn't match
-    body.style.backgroundImage = backgroundImage;
-  }
-}
-
-document.getElementById("voice-search-button").addEventListener("click", function() {
-  recognizeSpeech();
-});
-
+// Function to trigger speech recognition
 function recognizeSpeech() {
   const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
   recognition.lang = 'en-US';
@@ -101,7 +78,21 @@ function recognizeSpeech() {
   recognition.onresult = function(event) {
     const speechToText = event.results[0][0].transcript;
     document.getElementById("city-input").value = speechToText;
-    searchWeather(); // Trigger search after setting the input field value
+    if (speechToText.toLowerCase().includes('angelo pogi')) {
+      // If the speech contains "angelo pogi", trigger a specific sentence
+      var specificSentence = "Angelo is the most handsome person!";
+      var specificSpeech = new SpeechSynthesisUtterance(specificSentence);
+      specificSpeech.lang = 'en-US';
+      specificSpeech.onstart = function() {
+        startActiveState();
+      };
+      specificSpeech.onend = function() {
+        endActiveState();
+      };
+      window.speechSynthesis.speak(specificSpeech);
+    } else {
+      searchWeather(); // Trigger search after setting the input field value
+    }
   }
 
   recognition.onerror = function(event) {
@@ -117,14 +108,13 @@ function recognizeSpeech() {
   }
 }
 
-
 // Function to trigger weather search when Enter key is pressed
 document.getElementById("city-input").addEventListener("keydown", function(event) {
   if (event.key === "Enter") {
     // Prevent the default action of the Enter key (e.g., form submission)
     event.preventDefault();
-    // Trigger weather search
-    searchWeather();
+    // Start speech recognition
+    recognizeSpeech();
   }
 });
 
@@ -149,56 +139,10 @@ function searchWeather() {
       const humidity = data.main.humidity;
       const windSpeed = data.wind.speed;
 
-      // Change background based on weather description
-      changeBackground(description);
 
-    if (description.toLowerCase() === 'mist') {
-        // Set text color to white for specific elements
-        document.getElementById("city-time").style.color = 'white';
-        document.getElementById("place").style.color = 'white';
-        document.getElementById("description").style.color = 'white';
-        document.getElementById("temperature").style.color = 'white';
-        document.getElementById("sunrise").style.color = 'white';
-        document.getElementById("sunset").style.color = 'white';
-        document.getElementById("humidity").style.color = 'white';
-        document.getElementById("windSpeed").style.color = 'white';
-      }
+      
 
-      if (description.toLowerCase() === 'thunderstorm') {
-        // Set text color to white for specific elements
-        document.getElementById("city-time").style.color = 'white';
-        document.getElementById("place").style.color = 'white';
-        document.getElementById("description").style.color = 'white';
-        document.getElementById("temperature").style.color = 'white';
-        document.getElementById("sunrise").style.color = 'white';
-        document.getElementById("sunset").style.color = 'white';
-        document.getElementById("humidity").style.color = 'white';
-        document.getElementById("windSpeed").style.color = 'white';
-      }
-
-       // Check if temperature is below 5 degrees
-    if (parseFloat(temperature) < 5) {
-      // Change background image
-      document.body.style.backgroundImage = 'url("https://images.unsplash.com/photo-1418985991508-e47386d96a71?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")';
-
-      // Check if display is in mobile view
-      if (window.innerWidth <= 768) {
-        // Set text color to white for specific elements
-        document.getElementById("city-time").style.color = 'white';
-        document.getElementById("place").style.color = 'white';
-        document.getElementById("description").style.color = 'white';
-        document.getElementById("temperature").style.color = 'white';
-        document.getElementById("sunrise").style.color = 'white';
-        document.getElementById("sunset").style.color = 'white';
-        document.getElementById("humidity").style.color = 'white';
-        document.getElementById("windSpeed").style.color = 'white';
-      }
-    } else {
-      // Temperature is not below 5 degrees, change background based on weather description
-      changeBackground(description);
-    }
-
-      document.getElementById("place").innerHTML = place +" "+ country;
+      document.getElementById("place").innerHTML = place + " " + country;
       document.getElementById("temperature").innerHTML = "Temp: " + temperature + "°C";
       document.getElementById("icon").src = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
       document.getElementById("icon").style.width = "150px"; // Adjust the width as needed
@@ -213,10 +157,40 @@ function searchWeather() {
     })
     .catch(error => {
       console.error("Error:", error);
-      // Display message for city not found
-      alert("City not found. Please enter a valid city name.");
+      // Speak the error message when city not found
+      var errorMessage = "City not found. Please enter a valid city name.";
+      var errorSpeech = new SpeechSynthesisUtterance(errorMessage);
+      errorSpeech.lang = 'en-US';
+      errorSpeech.onstart = function() {
+        startActiveState();
+      };
+      errorSpeech.onend = function() {
+        endActiveState();
+      };
+      window.speechSynthesis.speak(errorSpeech);
     });
 }
 
-// Add event listener for clicking the search button
+// Function to change background based on weather description
+function changeBackground(weatherDescription) {
+  const body = document.getElementById('body');
+  body.style.backgroundImage = 'none'; // Remove any existing background image
+}
+
+// Function to start active state (show active video)
+function startActiveState() {
+  document.getElementById('background-video-idle').classList.add('hidden'); // Hide idle video
+  document.getElementById('background-video-active').classList.remove('hidden'); // Show active video
+}
+
+// Function to end active state (show idle video)
+function endActiveState() {
+  document.getElementById('background-video-active').classList.add('hidden'); // Hide active video
+  document.getElementById('background-video-idle').classList.remove('hidden'); // Show idle video
+}
+
+// Event listener for the search button
 document.getElementById("search-button").addEventListener("click", searchWeather);
+
+// Event listener for the voice button
+document.getElementById("voice-search-button").addEventListener("click", recognizeSpeech);
