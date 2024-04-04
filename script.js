@@ -80,7 +80,7 @@ function recognizeSpeech() {
     document.getElementById("city-input").value = speechToText;
     if (speechToText.toLowerCase().includes('angelo pogi')) {
       // If the speech contains "angelo pogi", trigger a specific sentence
-      var specificSentence = "Angelo is the most handsome person!";
+      var specificSentence = "OMSIM!";
       var specificSpeech = new SpeechSynthesisUtterance(specificSentence);
       specificSpeech.lang = 'en-US';
       specificSpeech.onstart = function() {
@@ -158,7 +158,7 @@ function searchWeather() {
     .catch(error => {
       console.error("Error:", error);
       // Speak the error message when city not found
-      var errorMessage = "City not found. Please enter a valid city name.";
+      var errorMessage = "City not found. Please say another city name.";
       var errorSpeech = new SpeechSynthesisUtterance(errorMessage);
       errorSpeech.lang = 'en-US';
       errorSpeech.onstart = function() {
